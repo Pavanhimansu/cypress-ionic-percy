@@ -20,9 +20,6 @@ jobs:
         with:
           node-version: 18.x
 
-      - name: Install Cordova
-        run: npm init @capacitor/app
-
       - name: Install Ionic
         run: npm install -g @ionic/cli
 
