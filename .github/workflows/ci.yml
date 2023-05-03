@@ -21,7 +21,7 @@ jobs:
           node-version: 18.x
 
       - run: npm install --save-dev @percy/cli
-      - run: npx percy snapshot _site/ # or any directory such as public/
+      - run: npx percy snapshot/ # or any directory such as public/
         env:
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
 
