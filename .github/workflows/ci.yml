@@ -26,9 +26,6 @@ jobs:
       - name: Install app dependencies
         run: npm install
 
-      - name: Add Android platform
-        run: ionic capacitor add android
-
       - name: Build Android Dev APK
         run: ionic cap sync
 
