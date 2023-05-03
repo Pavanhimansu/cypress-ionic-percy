@@ -1,19 +1,41 @@
-on:
-  push:
-    branches:
-      - main
+name: Build Android
+
+on: [push, pull_request]
 
 jobs:
-  name: CI
   build:
+    name: Build APK
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout source
+        uses: actions/checkout@v2
+
+      - name: Setup java
+        uses: actions/setup-java@v1
         with:
-          node-version: '18'
-      - run: npm install --save-dev @percy/cli
-      - run: npx percy snapshot _site/ # or any directory such as public/
-        env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+          java-version: 1.8
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18.x
+
+      - name: Install Cordova
+        run: npm init @capacitor/app
+
+      - name: Install Ionic
+        run: npm install -g @ionic/cli
+
+      - name: Install app dependencies
+        run: npm install
+
+      - name: Add Android platform
+        run: ionic capacitor add android
+
+      - name: Build Android Dev APK
+        run: ionic cap sync
+
+      - name: Build Android Release APK
+        run: ionic capacitor build android
+
+  
